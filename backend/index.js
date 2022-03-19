@@ -1,8 +1,8 @@
 const express = require('express');
-const app = express();
-const questions = require('./routes/questions.routes.js').default
-
+const questionsRoutes = require('./routes/questions.routes.js')
 const dotenv = require('dotenv')
+
+const app = express();
 dotenv.config()
 
 app.use(express.json())
@@ -11,7 +11,7 @@ app.use(express.urlencoded({extended: false}))
 /*app.use("/questions/unanswered", unanswered)
 app.use("/questions/rejected", rejected)
 app.use("/questions/answered", answered)*/
-app.use("/api/questions", questions)
+app.use("/api/questions", questionsRoutes)
 
 /*app.use("*", (req, res) => res.status(404).json({
     error: "not found"
