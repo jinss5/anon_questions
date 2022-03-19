@@ -12,12 +12,12 @@ router.delete("/:id", deleteContext)
 //router.route("/:id").put(updateContext).delete(deleteContext)
 
 
-router.route("/answered").get((req, res) => res.json({ message: 'answered'}))
+router.route('/answered').get((req, res) => res.json({ message: 'answered'}))
 /*router.get('/answered', (req, res) => {
     res.json({message: 'answered'})
 })*/
-router.route("/unanswered").get((req, res) => res.json({ message: 'unanswered'}))
+router.route('/unanswered').get((req, res) => res.json({ message: 'unanswered'}))
 
-router.route("/rejected").get((req, res) => res.json({ message: 'rejected'}))
+router.route('/rejected').get((req, res) => res.json({ message: 'rejected'}))
 
 module.exports = router
