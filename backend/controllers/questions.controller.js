@@ -1,10 +1,13 @@
 const asyncHandler = require('express-async-handler')
 
+const Question = require('../model/questions.model.js')
+
 // @desc Get Context
 // @route GET /api/questions
 // @access Public
 const getContext = asyncHandler( async (req, res) => {
-    res.status(200).json({ message: 'Get context'})
+    const questions = await Question.find()
+    res.status(200).json(questions)
 })
 
 // @desc Set Context
@@ -15,7 +18,12 @@ const setContext = asyncHandler( async (req, res) => {
         res.status(400)
         throw new Error('please add a text field')
     }
-    res.status(200).json({ message: 'Set context'})
+
+    const question = await Question.create({
+        text: req.body.text
+    })
+
+    res.status(200).json(question)
 })
 
 
@@ -23,14 +31,33 @@ const setContext = asyncHandler( async (req, res) => {
 // @route PUT /api/questions/:id
 // @access Private
 const updateContext = asyncHandler( async (req, res) => {
-    res.status(200).json({ message: `Update context ${req.params.id}`})
+    const question = await Question.findById(req.params.id)
+
+    if(!question) {
+        res.status(400)
+        throw new Error('question not found')
+    }
+
+    const updatedQuestion = await Question.findByIdAndUpdate(
+        req.params.id, req.body, {new: true} )
+
+    res.status(200).json(updatedQuestion)
 })
 
 // @desc delete Context
 // @route DELETE /api/questions/:id
 // @access Private
 const deleteContext = asyncHandler( async (req, res) => {
-    res.status(200).json({ message: `Delete context ${req.params.id}`})
+    const question = await Question.findById(req.params.id)
+
+    if(!question) {
+        res.status(400)
+        throw new Error('question not found')
+    }
+
+    await question.remove()
+
+    res.status(200).json({ id: req.params.id })
 })
 
 module.exports = {
