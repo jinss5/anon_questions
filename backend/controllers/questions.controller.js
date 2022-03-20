@@ -1,13 +1,12 @@
 const asyncHandler = require('express-async-handler')
-
 const Question = require('../model/questions.model.js')
 
 // @desc Get Context
 // @route GET /api/questions
 // @access Public
 const getContext = asyncHandler( async (req, res) => {
-    const questions = await Question.find()
-    res.status(200).json(questions)
+    const question = await Question.find()
+    res.status(200).json(question)
 })
 
 // @desc Set Context

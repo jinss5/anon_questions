@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-
 const { getContext, setContext, updateContext, deleteContext } = require('../controllers/questions.controller')
 
 router.get("/", getContext)

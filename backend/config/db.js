@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+
 const url = process.env.QUESTIONS_DB_URI
 
 const connectDB = async () => {
