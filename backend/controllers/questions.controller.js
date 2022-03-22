@@ -19,7 +19,8 @@ const setContext = asyncHandler( async (req, res) => {
     }
 
     const question = await Question.create({
-        text: req.body.text
+        text: req.body.text,
+        type: "unanswered"
     })
 
     res.status(200).json(question)
@@ -59,9 +60,18 @@ const deleteContext = asyncHandler( async (req, res) => {
     res.status(200).json({ id: req.params.id })
 })
 
+// @desc Get Type
+// @route Get /api/questions/type/:id
+// @access Public
+const getType = asyncHandler( async (req, res) => {
+    const type = await Question.findById(req.params.id).select("type")
+    res.status(200).json(type)
+})
+
 module.exports = {
     getContext,
     setContext,
     updateContext,
-    deleteContext
+    deleteContext,
+    getType
 }

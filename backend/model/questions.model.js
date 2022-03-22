@@ -9,6 +9,10 @@ const questionSchema = mongoose.Schema({
     text: {
         type: String,
         required: [true, 'please add a text value']
+    },
+    type: {
+        type: String,
+        required: [true, 'please add a type']
     }
 }, 
 {
