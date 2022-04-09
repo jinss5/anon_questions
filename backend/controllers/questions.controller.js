@@ -68,10 +68,33 @@ const getType = asyncHandler( async (req, res) => {
     res.status(200).json(type)
 })
 
+// @desc Update Type
+// @route Put /api/questions/type/:id
+// @access Private
+/*const updateType = asyncHandler( async (req, res) => {
+    const question = await Question.findById(req.params.id)
+    const type = await Question.findById(req.params.id).selcet("type")
+    
+    if(!question) {
+        res.status(400)
+        throw new Error('question not found')
+    }
+    if(!type) {
+        res.status(400)
+        throw new Error('type not found')
+    }
+
+    const updatedType = await Question.findByIdAndUpdate(
+        req.params.id, req.body, {new: true} )
+
+    res.status(200).json(updatedType)
+})*/
+
 module.exports = {
     getContext,
     setContext,
     updateContext,
     deleteContext,
-    getType
+    getType,
+    //updateType
 }

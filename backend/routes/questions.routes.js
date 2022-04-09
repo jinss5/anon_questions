@@ -6,7 +6,7 @@ const {
     updateContext, 
     deleteContext,
     getType,
-    updateType
+    //updateType
 } = require('../controllers/questions.controller')
 
 router.route("/").get(getContext).post(setContext)
@@ -19,7 +19,7 @@ router.delete("/:id", deleteContext)
 */
 
 router.route("/type/:id").get(getType)
-router.route("/type/:id").put((req, res) => res.json({ message: 'update type'}))
+router.route("/type/:id").put((req, res) => res.json({ message: 'ypte updated'}))
 /*
 router.route('/answered').get((req, res) => res.json({ message: 'answered'}))
 router.route('/unanswered').get((req, res) => res.json({ message: 'unanswered'}))
