@@ -9,17 +9,13 @@ const {
     //updateType
 } = require('../controllers/questions.controller')
 
+const { protect } = require('../middleware/auth')
+
 router.route("/").get(getContext).post(setContext)
-router.route("/:id").put(updateContext).delete(deleteContext)
-/*
-router.get("/", getContext)
-router.post("/", setContext)
-router.put("/:id", updateContext)
-router.delete("/:id", deleteContext)
-*/
+router.route("/:id").put(protect, updateContext).delete(protect, deleteContext)
 
 router.route("/type/:id").get(getType)
-router.route("/type/:id").put((req, res) => res.json({ message: 'ypte updated'}))
+router.route("/type/:id").put((req, res) => res.json({ message: 'type updated'}))
 /*
 router.route('/answered').get((req, res) => res.json({ message: 'answered'}))
 router.route('/unanswered').get((req, res) => res.json({ message: 'unanswered'}))

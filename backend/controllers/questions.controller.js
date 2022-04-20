@@ -1,11 +1,12 @@
 const asyncHandler = require('express-async-handler')
 const Question = require('../model/questions.model.js')
+const User = require('../model/user.model.js')
 
 // @desc Get Context
 // @route GET /api/questions
 // @access Public
 const getContext = asyncHandler( async (req, res) => {
-    const question = await Question.find()
+    const question = await Question.find({user: req.user})
     res.status(200).json(question)
 })
 
@@ -20,7 +21,8 @@ const setContext = asyncHandler( async (req, res) => {
 
     const question = await Question.create({
         text: req.body.text,
-        type: "unanswered"
+        type: "unanswered",
+        user: req.user.id
     })
 
     res.status(200).json(question)
@@ -38,6 +40,17 @@ const updateContext = asyncHandler( async (req, res) => {
         throw new Error('question not found')
     }
 
+    //only user created can update
+    const user = await User.findById(req.user.id)
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+    if(question.user.toString !== user.id) {
+        res.status(401)
+        throw new Error('user not authorized')
+    }
+
     const updatedQuestion = await Question.findByIdAndUpdate(
         req.params.id, req.body, {new: true} )
 
@@ -53,6 +66,17 @@ const deleteContext = asyncHandler( async (req, res) => {
     if(!question) {
         res.status(400)
         throw new Error('question not found')
+    }
+
+    //only user created can delete
+    const user = await User.findById(req.user.id)
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+    if(question.user.toString !== user.id) {
+        res.status(401)
+        throw new Error('user not authorized')
     }
 
     await question.remove()
