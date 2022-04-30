@@ -41,12 +41,11 @@ const updateContext = asyncHandler( async (req, res) => {
     }
 
     //only user created can update
-    const user = await User.findById(req.user.id)
-    if(!user) {
+    if(!req.user) {
         res.status(401)
         throw new Error('User not found')
     }
-    if(question.user.toString !== user.id) {
+    if(question.user.toString !== req.user.id) {
         res.status(401)
         throw new Error('user not authorized')
     }
@@ -69,12 +68,11 @@ const deleteContext = asyncHandler( async (req, res) => {
     }
 
     //only user created can delete
-    const user = await User.findById(req.user.id)
-    if(!user) {
+    if(!req.user) {
         res.status(401)
         throw new Error('User not found')
     }
-    if(question.user.toString !== user.id) {
+    if(question.user.toString !== req.user.id) {
         res.status(401)
         throw new Error('user not authorized')
     }
