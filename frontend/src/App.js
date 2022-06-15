@@ -1,8 +1,8 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Header from './components/Header'
-import Dashboard from './pages/Dashboard'
-import Login from './pages/Login'
-import Register from './pages/Register'
+import Dashboard from './routes/Dashboard'
+import Login from './routes/Login'
+import Register from './routes/Register'
 
 function App() {
   return (
